@@ -10,8 +10,16 @@
         "data": {
           "total": 4,
           "breakdown": [
-            { "name": "Connected", "value": 2, "color": "#5677FF" },
-            { "name": "Not Connected", "value": 2, "color": "#E1EBFF" }
+            {
+              "name": "Connected",
+              "value": 2,
+              "color": "#5677FF"
+            },
+            {
+              "name": "Not Connected",
+              "value": 2,
+              "color": "#E1EBFF"
+            }
           ]
         }
       },
@@ -22,10 +30,26 @@
         "data": {
           "total": 7506,
           "breakdown": [
-            { "name": "Failed", "value": 1685, "color": "#B8150F" },
-            { "name": "Warning", "value": 68, "color": "#FBD830" },
-            { "name": "Not Available", "value": 36, "color": "#C7CCDC" },
-            { "name": "Passed", "value": 7253, "color": "#1DA45A" }
+            {
+              "name": "Failed",
+              "value": 1685,
+              "color": "#B8150F"
+            },
+            {
+              "name": "Warning",
+              "value": 68,
+              "color": "#FBD830"
+            },
+            {
+              "name": "Not Available",
+              "value": 36,
+              "color": "#C7CCDC"
+            },
+            {
+              "name": "Passed",
+              "value": 7253,
+              "color": "#1DA45A"
+            }
           ]
         }
       }
@@ -42,8 +66,16 @@
         "data": {
           "total": 4,
           "breakdown": [
-            { "name": "Connected", "value": 2, "color": "#5677FF" },
-            { "name": "Not Connected", "value": 2, "color": "#E1EBFF" }
+            {
+              "name": "Connected",
+              "value": 2,
+              "color": "#5677FF"
+            },
+            {
+              "name": "Not Connected",
+              "value": 2,
+              "color": "#E1EBFF"
+            }
           ]
         }
       },
@@ -54,10 +86,26 @@
         "data": {
           "total": 7506,
           "breakdown": [
-            { "name": "Failed", "value": 1685, "color": "#B8150F" },
-            { "name": "Warning", "value": 68, "color": "#FBD830" },
-            { "name": "Not Available", "value": 36, "color": "#C7CCDC" },
-            { "name": "Passed", "value": 7253, "color": "#1DA45A" }
+            {
+              "name": "Failed",
+              "value": 1685,
+              "color": "#B8150F"
+            },
+            {
+              "name": "Warning",
+              "value": 68,
+              "color": "#FBD830"
+            },
+            {
+              "name": "Not Available",
+              "value": 36,
+              "color": "#C7CCDC"
+            },
+            {
+              "name": "Passed",
+              "value": 7253,
+              "color": "#1DA45A"
+            }
           ]
         }
       }

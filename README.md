@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Widget Flow Dashboard
 
-## Getting Started
+A modern, responsive dashboard application for managing and visualizing widgets across different categories. Built with Next.js 15 and featuring a clean, intuitive interface for creating, editing, and organizing dashboard widgets.
 
-First, run the development server:
+## 🚀 Live Demo
+
+**This project is deployed on my VPS and is accessible at:** [Your VPS URL here]
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js** 22.17 or later
+- **pnpm** (recommended) or npm
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/chhavipaliwal/widget-flow.git
+   cd widget-flow
+   ```
+
+2. **Run the setup script**
+
+   ```bash
+   chmod +x setup.sh
+   ./setup.sh
+   ```
+
+3. **Start the development server**
+
+   ```bash
+   pnpm dev
+   ```
+
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 📦 Manual Setup
+
+If you prefer to set up manually:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Install pnpm (if not already)
+npm i -g pnpm
+
+# Install dependencies
+pnpm install
+
+# Start development server
 pnpm dev
-# or
-bun dev
+
+or
+
+# Build for production
+pnpm build
+
+# Start production server
+pnpm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Core Framework
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js 15** - React framework with App Router
+- **React 19** - Latest React with concurrent features
+- **TypeScript** - Type-safe development
 
-## Learn More
+### UI & Styling
 
-To learn more about Next.js, take a look at the following resources:
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **Radix UI** - Accessible component primitives
+- **shadcn/ui** - Beautiful, accessible components
+- **Lucide React** - Modern icon library
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### State Management & Data Fetching
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **TanStack Query (React Query)** - Server state management
+- **Formik** - Form handling
+- **Yup** - Schema validation
 
-## Deploy on Vercel
+### Data Visualization
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Recharts** - Composable charting library
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Development Tools
+
+- **Turbopack** - Fast bundler for development
+- **pnpm** - Fast, disk space efficient package manager
+
+## 📋 Features
+
+- 📊 **Widget Management** - Create, edit, and delete dashboard widgets
+- 🏷️ **Category Organization** - Organize widgets into categories
+- 📈 **Data Visualization** - Support for donut charts, bar charts, and more
+- 🎨 **Modern UI** - Clean, responsive design with dark/light mode support
+- ⚡ **Real-time Updates** - Optimistic updates with React Query
+- 🔧 **Type Safety** - Full TypeScript support
+- 📱 **Responsive Design** - Works on all device sizes
+
+## 🏗️ Project Structure
+
+```
+widget-flow/
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── components/            # React components
+│   ├── dashboard/         # Dashboard-specific components
+│   └── ui/               # Reusable UI components
+├── data/                 # Static data files
+├── lib/                  # Utility libraries
+├── types/                # TypeScript type definitions
+└── utils/                # Helper utilities
+```
+
+## 🎯 Available Scripts
+
+- `pnpm dev` - Start development server with Turbopack
+- `pnpm build` - Build for production with Turbopack
+- `pnpm start` - Start production server

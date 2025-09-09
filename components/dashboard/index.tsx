@@ -1,34 +1,79 @@
 "use client";
 
-import { getCategories } from "@/app/helper";
-import { useQuery } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Category, WidgetBreakdown } from "@/types/dashboard";
-import { ResponsiveContainer, PieChart, Pie, Tooltip, Cell } from "recharts";
-import { Badge } from "../ui/badge";
+import { getCategories, addWidget, deleteWidget } from "@/app/helper";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Card, CardContent } from "../ui/card";
+import { Category, WidgetType } from "@/types/dashboard";
+import Widget from "./widget";
+import { Button } from "../ui/button";
+import { PlusIcon } from "lucide-react";
+import { useState } from "react";
+import AddWidgetForm from "./add-widget-form";
 
 export default function Dashboard() {
+  const queryClient = useQueryClient();
   const { data: categories } = useQuery<Category[]>({
     queryKey: ["categories"],
     queryFn: getCategories,
   });
 
+  const addWidgetMutation = useMutation({
+    mutationFn: ({
+      categoryId,
+      widgetData,
+    }: {
+      categoryId: string;
+      widgetData: any;
+    }) => addWidget(categoryId, widgetData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+    },
+  });
+
+  const deleteWidgetMutation = useMutation({
+    mutationFn: ({
+      categoryId,
+      widgetId,
+    }: {
+      categoryId: string;
+      widgetId: string;
+    }) => deleteWidget(categoryId, widgetId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+    },
+    onError: (error) => {
+      console.error("Failed to delete widget:", error);
+      // You could add a toast notification here
+    },
+  });
+
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-4">
       {categories?.map((category) => (
         <Card
           className="px-4 gap-0 shadow-none border-none py-2"
           key={category.id}
         >
-          <h2 className="text-lg font-semibold mb-4">{category.name}</h2>
+          <h2 className="text-lg font-semibold">{category.name}</h2>
           <div className="grid grid-cols-3 gap-4">
             {category.widgets.map((widget) => (
-              <WidgetContainerCard
+              <Widget
                 key={widget.id}
                 chartData={widget.data.breakdown}
                 widgetTitle={widget.title}
+                widgetId={widget.id}
+                categoryId={category.id}
+                onDelete={(categoryId, widgetId) =>
+                  deleteWidgetMutation.mutate({ categoryId, widgetId })
+                }
+                isDeleting={deleteWidgetMutation.isPending}
               />
             ))}
+            <NewWidgetCard
+              categoryId={category.id}
+              onAddWidget={addWidgetMutation.mutate}
+              isLoading={addWidgetMutation.isPending}
+            />
           </div>
         </Card>
       ))}
@@ -36,76 +81,50 @@ export default function Dashboard() {
   );
 }
 
-function WidgetContainerCard({
-  chartData,
-  widgetTitle,
+const NewWidgetCard = ({
+  categoryId,
+  onAddWidget,
+  isLoading,
 }: {
-  chartData: WidgetBreakdown[];
-  widgetTitle: string;
-}) {
+  categoryId: string;
+  onAddWidget: (data: { categoryId: string; widgetData: any }) => void;
+  isLoading: boolean;
+}) => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const handleSubmit = (values: any) => {
+    onAddWidget({
+      categoryId,
+      widgetData: values,
+    });
+    setIsFormOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsFormOpen(false);
+  };
+
   return (
-    <Card className="gap-0 py-3">
-      <CardHeader className="px-4">
-        <CardTitle>{widgetTitle}</CardTitle>
-      </CardHeader>
+    <>
+      <AddWidgetForm
+        isOpen={isFormOpen}
+        onSubmit={handleSubmit}
+        onCancel={handleCancel}
+        isLoading={isLoading}
+      />
 
-      <CardContent className="flex-row justify-between flex gap-4 px-2">
-        <ResponsiveContainer
-          className="[&_.recharts-surface]:outline-hidden"
-          height={180}
-          width={180}
-          minWidth={180}
-        >
-          <PieChart accessibilityLayer>
-            <Tooltip
-              content={({ payload }) =>
-                payload?.map((p, index) => {
-                  const name = p.name;
-                  const value = p.value;
-
-                  return (
-                    <Badge key={index}>
-                      {value} {name}
-                    </Badge>
-                  );
-                })
-              }
-              cursor={false}
-            />
-            <Pie
-              data={chartData}
-              cx={80}
-              cy={80}
-              innerRadius={60}
-              outerRadius={80}
-              paddingAngle={5}
-              dataKey="value"
-              animationEasing="ease"
-              nameKey="name"
-              strokeWidth={0}
-            >
-              {chartData.map((entry) => (
-                <Cell key={`cell-${entry.name}`} fill={entry.color} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
-        <div className="text-tiny text-default-500 flex min-w-40 flex-col justify-center gap-4 p-4 lg:p-0">
-          {chartData.map((entry, index) => (
-            <div key={index} className="flex text-xs items-center gap-2">
-              <span
-                className="h-4 w-4 rounded-sm"
-                style={{
-                  backgroundColor: entry.color,
-                }}
-              />
-              <span className="capitalize">
-                {entry.name} ({entry.value})
-              </span>
-            </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+      <Card className="gap-0 py-3 bg-primary/5 border-none shadow-none">
+        <CardContent className="text-lg h-full font-semibold flex justify-center items-center">
+          <Button
+            variant="outline"
+            onClick={() => setIsFormOpen(true)}
+            disabled={isLoading}
+          >
+            <PlusIcon className="w-4 h-4" />
+            Add Widget
+          </Button>
+        </CardContent>
+      </Card>
+    </>
   );
-}
+};
