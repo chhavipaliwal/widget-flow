@@ -1,0 +1,53 @@
+[
+  {
+    "id": "cspm-executive",
+    "name": "CSPM Executive Dashboard",
+    "description": "High-level security posture and compliance overview",
+    "widgets": [
+      {
+        "id": "security-score",
+        "name": "Security Score",
+        "text": "Overall security posture: 87/100. Critical vulnerabilities: 3, High: 12, Medium: 45",
+        "type": "metric"
+      },
+      {
+        "id": "compliance-status",
+        "name": "Compliance Status",
+        "text": "SOC2: Compliant, ISO27001: 94% compliant, GDPR: Compliant, HIPAA: Under review",
+        "type": "status"
+      }
+    ]
+  },
+  {
+    "id": "threat-analysis",
+    "name": "Threat Analysis",
+    "description": "Real-time threat detection and analysis",
+    "widgets": [
+      {
+        "id": "threat-detection",
+        "name": "Threat Detection",
+        "text": "Active threats detected: 7, Blocked attacks: 142 (last 24h), Suspicious activities: 23",
+        "type": "alert"
+      }
+    ]
+  },
+  {
+    "id": "compliance-reports",
+    "name": "Compliance Reports",
+    "description": "Audit reports and compliance documentation",
+    "widgets": [
+      {
+        "id": "audit-summary",
+        "name": "Audit Summary",
+        "text": "Last audit: March 2024, Next scheduled: June 2024, Outstanding issues: 5",
+        "type": "report"
+      }
+    ]
+  },
+  {
+    "id": "user-management",
+    "name": "User Management",
+    "description": "User access and permissions management",
+    "widgets": []
+  }
+]
