@@ -14,7 +14,6 @@ export async function POST(
     const body = await req.json();
     const { id: categoryId } = await params;
 
-    // Validate required fields
     if (!body.title || !body.type) {
       return NextResponse.json(
         { error: "Title and type are required" },
@@ -22,7 +21,6 @@ export async function POST(
       );
     }
 
-    // Validate data structure if provided
     if (body.data) {
       if (typeof body.data.total !== "number" || body.data.total < 0) {
         return NextResponse.json(
@@ -57,10 +55,8 @@ export async function POST(
       );
     }
 
-    // Read current data
     const data = await readData(FILE_NAME);
 
-    // Find the category
     const categoryIndex = data.findIndex((c: any) => c.id === categoryId);
     if (categoryIndex === -1) {
       return NextResponse.json(
@@ -69,10 +65,8 @@ export async function POST(
       );
     }
 
-    // Generate widget ID
     const widgetId = slugify(body.title, { lower: true });
 
-    // Check if widget already exists in this category
     const existingWidget = data[categoryIndex].widgets.find(
       (w: Widget) => w.id === widgetId
     );
@@ -83,7 +77,6 @@ export async function POST(
       );
     }
 
-    // Create new widget with default data structure
     const newWidget: Widget = {
       id: widgetId,
       title: body.title,
@@ -94,10 +87,8 @@ export async function POST(
       },
     };
 
-    // Add widget to category
     data[categoryIndex].widgets.push(newWidget);
 
-    // Write updated data
     await writeData(FILE_NAME, data);
 
     return NextResponse.json({
