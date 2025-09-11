@@ -1,0 +1,1 @@
+The repository contains a CODE_OF_CONDUCT.md file to establish clear guidelines for community behavior and collaboration. This file promotes a respectful, inclusive, and professional environment for all contributors and users, helping to prevent conflicts and maintain a positive project culture.
